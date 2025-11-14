@@ -5,16 +5,34 @@ pipeline {
     TAG="1.0"
   }
   stages {
-    stage('Checkout') { steps { checkout scm } }
-    stage('Install & Test') { steps { sh 'npm ci'; sh 'npm test' } }
-    stage('Build') { steps { sh 'docker build -t $IMAGE:$TAG .' } }
-    stage('Push') {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Install & Test') {
+      steps {
+        bat 'npm ci'
+        bat 'npm test'
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        bat "docker build -t %IMAGE%:%TAG% ."
+      }
+    }
+
+    stage('Push Docker Image') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-          sh "echo $PASS | docker login -u $USER --password-stdin"
-          sh "docker push $IMAGE:$TAG"
+          bat "echo %PASS% | docker login -u %USER% --password-stdin"
+          bat "docker push %IMAGE%:%TAG%"
         }
       }
     }
+
   }
 }
