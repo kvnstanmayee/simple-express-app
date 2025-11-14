@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-/*comment*/
+
 let items = [
   { id: 1, name: 'foo'},
   { id: 2, name: 'bar'}
