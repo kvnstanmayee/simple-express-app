@@ -1,0 +1,21 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Login
+      uses: docker/login-action@v2
+      with:
+        username: kvnstanmayee
+        password: ${{ secrets.DOCKERPASS }}
+    - name: Build & Push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: kvnstanmayee/simple-express-app:latest

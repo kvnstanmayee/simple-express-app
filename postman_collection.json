@@ -1,0 +1,38 @@
+{
+  "info": {
+    "name": "Simple Express API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Items",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/items"
+      }
+    },
+    {
+      "name": "Create Item",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"test\"}"
+        },
+        "url": "{{baseUrl}}/api/items"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
